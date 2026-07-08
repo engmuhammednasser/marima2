@@ -77,20 +77,23 @@ img { max-width: 100%; }
 }
 .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
 .hero {
+  position: relative;
   display: grid;
   min-height: calc(100svh - 112px);
   background: var(--black);
   color: var(--white);
+  overflow: hidden;
 }
-.heroMedia { position: relative; min-height: 58svh; }
-.heroMedia::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.62), rgba(0,0,0,.08)); }
+.heroMedia { position: absolute; inset: 0; }
+.heroMedia img { object-position: center center; }
+.heroMedia::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.68), rgba(0,0,0,.12)); }
 .heroCopy {
   align-self: end;
   padding: 0 16px 28px;
   max-width: 640px;
   position: relative;
   z-index: 1;
-  margin-top: -210px;
+  width: min(100%, 680px);
 }
 .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 1.8px; font-size: 12px; font-weight: 700; }
 h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: 0; }
