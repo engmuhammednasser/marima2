@@ -2,7 +2,12 @@ export const brand = {
   name: "Mariam Fathy Shop",
   logo: "/assets/logo/logo.png",
   whatsapp: "201038413245",
-  instapay: "mariam.fatthy@instapay"
+  instapay: "mariam.fatthy@instapay",
+  instagram: "@mariamfathyshop",
+  hotlineUrl: "https://www.22522.tel",
+  hotlineLabel: "www.22522.tel",
+  locationAr: "مصر",
+  locationEn: "Egypt"
 };
 
 export const banners = [

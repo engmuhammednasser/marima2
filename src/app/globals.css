@@ -552,6 +552,75 @@ h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: 0; }
   border: 1px solid var(--surface-high);
   padding: 18px;
 }
+.contactPage {
+  background: var(--surface);
+}
+.contactHero {
+  background: var(--black);
+  color: var(--white);
+  padding: 46px 0;
+}
+.contactHero h1 {
+  font-size: clamp(36px, 8vw, 64px);
+  margin: 8px 0 12px;
+}
+.contactHero p {
+  max-width: 680px;
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.75;
+  margin: 0;
+}
+.contactLayout {
+  display: grid;
+  gap: 0;
+  padding: 34px 0 58px;
+}
+.contactInfoPanel,
+.contactFormPanel {
+  border: 1px solid var(--surface-high);
+  padding: 22px;
+}
+.contactInfoPanel {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+.contactInfoPanel h2,
+.contactFormPanel h2 {
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+.contactDetail {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.contactIcon {
+  color: var(--gold);
+  padding-top: 2px;
+}
+.contactDetail span:not(.contactIcon) {
+  display: block;
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.contactDetail strong {
+  display: block;
+  color: rgba(255, 255, 255, .76);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.contactDetail a {
+  color: inherit;
+}
+.contactFormPanel {
+  background: var(--white);
+}
 .formGrid { display: grid; gap: 14px; }
 .field label { display: block; font-size: 12px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
 .field input, .field textarea, .field select {
@@ -564,6 +633,15 @@ h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: 0; }
 }
 .field textarea { min-height: 92px; resize: vertical; }
 .error { color: #ba1a1a; font-size: 13px; line-height: 1.5; margin: 12px 0; }
+.successMessage {
+  border: 1px solid rgba(212, 175, 55, .55);
+  background: #fff8df;
+  color: var(--ink);
+  border-radius: 4px;
+  padding: 11px 12px;
+  font-size: 13px;
+  font-weight: 800;
+}
 .checkbox { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; }
 .footer {
   background: var(--black);
@@ -648,6 +726,9 @@ h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: 0; }
   .detail { grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr); align-items: start; padding-top: 44px; }
   .mobileStickyCart { display: none; }
   .checkoutLayout { grid-template-columns: minmax(0, 1fr) 380px; align-items: start; }
+  .contactHero { padding: 68px 0; }
+  .contactLayout { grid-template-columns: .92fr 1.08fr; padding-top: 54px; }
+  .contactInfoPanel, .contactFormPanel { padding: 46px; }
   .formGrid.two { grid-template-columns: repeat(2, 1fr); }
   .footerGrid { grid-template-columns: 1fr auto; align-items: center; }
   .reviewGrid { grid-template-columns: repeat(3, 1fr); }
