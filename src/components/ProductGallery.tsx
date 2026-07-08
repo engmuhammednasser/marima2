@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ZoomIn } from "lucide-react";
 import { useState } from "react";
 
 export function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
@@ -44,6 +45,10 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
           }
         }}
       >
+        <div className="zoomHint" aria-hidden="true">
+          <ZoomIn size={16} />
+          <span>{zoomed ? "Zoomed" : "Zoom"}</span>
+        </div>
         <Image
           className="galleryZoomImage"
           src={image}
