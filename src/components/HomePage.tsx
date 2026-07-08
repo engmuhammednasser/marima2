@@ -1,35 +1,21 @@
 import Image from "next/image";
-import Link from "next/link";
-import { BadgeCheck, PackageOpen, Ruler, Truck } from "lucide-react";
 import type { Locale } from "@/types/shop";
 import { banners, copy } from "@/data/siteContent";
 import { products } from "@/data/products";
-import { ProductCard } from "@/components/ProductCard";
+import { HeroSection } from "@/components/HeroSection";
+import { TrustBadges } from "@/components/TrustBadges";
+import { ProductGrid } from "@/components/ProductGrid";
+import { ReviewCard } from "@/components/ReviewCard";
+import { FAQ } from "@/components/FAQ";
 
 export function HomePage({ locale }: { locale: Locale }) {
   const c = copy[locale];
-  const icons = [Truck, PackageOpen, BadgeCheck, Ruler];
 
   return (
     <main>
-      <section className="hero">
-        <div className="heroMedia">
-          <Image src={banners[0]} alt={c.heroTitle} fill priority sizes="100vw" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="heroCopy">
-          <div className="eyebrow">Mariam Fathy Shop</div>
-          <h1>{c.heroTitle}</h1>
-          <p>{c.heroText}</p>
-          <Link className="button gold" href="#products">{c.shopNow}</Link>
-        </div>
-      </section>
+      <HeroSection locale={locale} />
 
-      <div className="trust">
-        {c.trust.map((item, index) => {
-          const Icon = icons[index];
-          return <div className="trustItem" key={item}><Icon size={20} /> <span>{item}</span></div>;
-        })}
-      </div>
+      <TrustBadges locale={locale} />
 
       <section className="section" id="products">
         <div className="container">
@@ -39,9 +25,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               <h2>{c.featured}</h2>
             </div>
           </div>
-          <div className="grid">
-            {products.map((product) => <ProductCard key={product.id} product={product} locale={locale} />)}
-          </div>
+          <ProductGrid products={products} locale={locale} />
         </div>
       </section>
 
@@ -54,6 +38,21 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </div>
       </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="sectionHead">
+            <h2>{locale === "ar" ? "آراء العميلات" : "Customer reviews"}</h2>
+          </div>
+          <div className="reviewGrid">
+            <ReviewCard text="القماش ناعم جداً والمقاس جه تمام. طولي 163 واخدت M وكان مثالي." author="NOUR M. · Egypt" />
+            <ReviewCard text="The fabric quality is exceptional. Worth every penny. Will order again." author="SARA K. · Egypt" />
+            <ReviewCard text="اللون جه أجمل من الصور. الشحن كان سريع وجاي في باكيدج أنيق." author="DINA H. · Egypt" stars="★★★★☆" />
+          </div>
+        </div>
+      </section>
+
+      <FAQ locale={locale} />
     </main>
   );
 }

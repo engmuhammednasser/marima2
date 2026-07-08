@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { CartItem, Product, ProductColor } from "@/types/shop";
+import { checkoutConfig } from "@/data/checkoutConfig";
 
 type AddInput = {
   product: Product;
@@ -36,7 +37,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const stored = window.localStorage.getItem("mariam-cart");
-    if (stored) setItems(JSON.parse(stored) as CartItem[]);
+    if (stored) {
+      const parsed = JSON.parse(stored) as CartItem[];
+      setItems(parsed.map((item) => ({ ...item, subtotal: item.subtotal ?? item.unitPrice * item.quantity })));
+    }
   }, []);
 
   useEffect(() => {
@@ -63,25 +67,30 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             colorNameAr: color.nameAr,
             colorNameEn: color.nameEn,
             unitPrice: product.price,
-            quantity
+            quantity,
+            subtotal: product.price * quantity
           };
           const key = keyOf(next);
           const existing = current.find((item) => keyOf(item) === key);
           if (!existing) return [...current, next];
-          return current.map((item) => keyOf(item) === key ? { ...item, quantity: item.quantity + quantity } : item);
+          return current.map((item) => {
+            if (keyOf(item) !== key) return item;
+            const nextQuantity = item.quantity + quantity;
+            return { ...item, quantity: nextQuantity, subtotal: item.unitPrice * nextQuantity };
+          });
         });
         setIsOpen(true);
       },
       updateQuantity: (key, quantity) => {
         setItems((current) => current.flatMap((item) => {
           if (keyOf(item) !== key) return [item];
-          return quantity > 0 ? [{ ...item, quantity }] : [];
+          return quantity > 0 ? [{ ...item, quantity, subtotal: item.unitPrice * quantity }] : [];
         }));
       },
       removeItem: (key) => setItems((current) => current.filter((item) => keyOf(item) !== key)),
       clearCart: () => setItems([]),
       subtotal,
-      deposit: Math.ceil(subtotal * 0.1),
+      deposit: Math.ceil(subtotal * checkoutConfig.depositRate),
       count: items.reduce((sum, item) => sum + item.quantity, 0)
     };
   }, [items, isOpen]);

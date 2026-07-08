@@ -18,6 +18,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
       <aside className="drawer">
         <div className="drawerHeader" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <strong>{c.cart}</strong>
+          <Image src="/assets/logo/logo.png" alt="Mariam Fathy Shop" width={68} height={44} />
           <button className="iconButton" type="button" onClick={closeCart} aria-label="Close cart"><X size={18} /></button>
         </div>
         <div className="drawerItems">
@@ -32,7 +33,7 @@ export function CartDrawer({ locale }: { locale: Locale }) {
                   <strong>{locale === "ar" ? item.nameAr : item.nameEn}</strong>
                   <div className="cartMeta">
                     {item.size} · {locale === "ar" ? item.colorNameAr : item.colorNameEn}<br />
-                    {formatPrice(item.unitPrice)}
+                    {formatPrice(item.unitPrice)} · {locale === "ar" ? "الإجمالي" : "Subtotal"} {formatPrice(item.subtotal)}
                   </div>
                   <div className="quantity" style={{ marginTop: 8 }}>
                     <button type="button" onClick={() => updateQuantity(key, item.quantity - 1)}>-</button>

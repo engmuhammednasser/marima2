@@ -19,6 +19,7 @@ export default function ThankYouPage({
         <div className="eyebrow" style={{ marginTop: 16 }}>{order}</div>
         <h1 style={{ fontSize: 34, margin: "8px 0 12px" }}>{locale === "ar" ? "تم استلام الأوردر" : "Order received"}</h1>
         <p className="detailText">{locale === "ar" ? "شكراً لكِ. سنراجع بيانات الطلب وإيصال الدفع ثم نتواصل معكِ للتأكيد." : "Thank you. We will review your order details and payment receipt, then contact you to confirm."}</p>
+        <div data-conversion-ready="meta-pixel-google-ads" style={{ display: "none" }}>{order}</div>
         <Link className="button" href={`/${locale}`} style={{ marginTop: 18 }}>{locale === "ar" ? "العودة للتسوق" : "Continue shopping"}</Link>
       </section>
     </main>

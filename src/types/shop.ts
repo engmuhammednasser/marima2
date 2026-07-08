@@ -50,4 +50,5 @@ export type CartItem = {
   colorNameEn: string;
   unitPrice: number;
   quantity: number;
+  subtotal: number;
 };

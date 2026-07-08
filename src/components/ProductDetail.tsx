@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { ShoppingBag } from "lucide-react";
 import type { Locale, Product } from "@/types/shop";
 import { copy, sizeChart } from "@/data/siteContent";
 import { formatPrice } from "@/lib/locale";
 import { useCart } from "@/components/CartProvider";
+import { ProductGallery } from "@/components/ProductGallery";
+import { SizeSelector } from "@/components/SizeSelector";
+import { ColorSelector } from "@/components/ColorSelector";
+import { QuantitySelector } from "@/components/QuantitySelector";
 
 export function ProductDetail({ product, locale }: { product: Product; locale: Locale }) {
-  const [image, setImage] = useState(product.images[0]);
   const [size, setSize] = useState("");
   const [colorId, setColorId] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -29,18 +31,7 @@ export function ProductDetail({ product, locale }: { product: Product; locale: L
 
   return (
     <main className="container detail">
-      <section>
-        <div className="galleryMain">
-          <Image src={image} alt={locale === "ar" ? product.nameAr : product.nameEn} fill priority sizes="(min-width: 760px) 55vw, 100vw" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="thumbs">
-          {product.images.map((src) => (
-            <button className="thumb" key={src} type="button" onClick={() => setImage(src)}>
-              <Image src={src} alt="" fill sizes="120px" style={{ objectFit: "cover" }} />
-            </button>
-          ))}
-        </div>
-      </section>
+      <ProductGallery images={product.images} alt={locale === "ar" ? product.nameAr : product.nameEn} />
 
       <section className="detailPanel">
         <div className="eyebrow">{product.category}</div>
@@ -49,33 +40,11 @@ export function ProductDetail({ product, locale }: { product: Product; locale: L
         <p className="detailText">{locale === "ar" ? product.descriptionAr : product.descriptionEn}</p>
         <div className="notice">{locale === "ar" ? "دفعة مقدمة ١٠٪ لتأكيد الطلب. تُخصم عند الاستلام وتُرد كاملة عند الإرجاع." : "10% deposit to confirm order. Deducted on delivery and fully refunded if returned."}</div>
 
-        <div className="optionGroup">
-          <span className="optionLabel">{locale === "ar" ? "المقاس" : "Size"}</span>
-          <div className="chips">
-            {product.sizes.map((item) => <button className={`chip ${size === item ? "active" : ""}`} type="button" key={item} onClick={() => setSize(item)}>{item}</button>)}
-          </div>
-        </div>
+        <SizeSelector sizes={product.sizes} value={size} onChange={setSize} locale={locale} />
 
-        <div className="optionGroup">
-          <span className="optionLabel">{locale === "ar" ? "اللون" : "Color"}</span>
-          <div className="chips">
-            {product.colors.map((color) => (
-              <button className={`chip ${colorId === color.id ? "active" : ""}`} type="button" key={color.id} onClick={() => setColorId(color.id)}>
-                <span className="swatch" style={{ background: color.value, display: "inline-block", verticalAlign: "middle", marginInlineEnd: 6 }} />
-                {locale === "ar" ? color.nameAr : color.nameEn}
-              </button>
-            ))}
-          </div>
-        </div>
+        <ColorSelector colors={product.colors} value={colorId} onChange={setColorId} locale={locale} />
 
-        <div className="optionGroup">
-          <span className="optionLabel">{locale === "ar" ? "الكمية" : "Quantity"}</span>
-          <div className="quantity">
-            <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-            <span>{quantity}</span>
-            <button type="button" onClick={() => setQuantity(quantity + 1)}>+</button>
-          </div>
-        </div>
+        <QuantitySelector value={quantity} onChange={setQuantity} locale={locale} />
 
         {product.colors.some((color) => color.isPlaceholder) && <div className="missing"><strong>{c.missingData}</strong><br />{locale === "ar" ? "أسماء الألوان الدقيقة غير موجودة في الملفات المرفوعة." : "Exact color names are not available in the uploaded files."}</div>}
         {error && <div className="error">{error}</div>}

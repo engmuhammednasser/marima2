@@ -274,6 +274,25 @@ h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: 0; }
 }
 .thankyou { min-height: 62vh; display: grid; place-items: center; text-align: center; }
 .thankyouBox { max-width: 560px; background: var(--white); border: 1px solid var(--surface-high); padding: 28px; }
+.reviewGrid {
+  display: grid;
+  gap: 14px;
+}
+.reviewCard {
+  background: var(--white);
+  border: 1px solid var(--surface-high);
+  padding: 18px;
+  line-height: 1.7;
+}
+.reviewCard p {
+  margin: 8px 0 12px;
+  color: var(--muted);
+}
+.reviewStars {
+  color: var(--gold);
+  letter-spacing: 1px;
+  font-size: 14px;
+}
 
 @media (min-width: 760px) {
   .header { padding-inline: 32px; }
@@ -286,4 +305,5 @@ h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: 0; }
   .checkoutLayout { grid-template-columns: minmax(0, 1fr) 380px; align-items: start; }
   .formGrid.two { grid-template-columns: repeat(2, 1fr); }
   .footerGrid { grid-template-columns: 1fr auto; align-items: center; }
+  .reviewGrid { grid-template-columns: repeat(3, 1fr); }
 }

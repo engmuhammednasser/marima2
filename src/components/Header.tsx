@@ -8,15 +8,16 @@ import { brand, copy } from "@/data/siteContent";
 import { navigation } from "@/data/navigation";
 import { useCart } from "@/components/CartProvider";
 import { CartDrawer } from "@/components/CartDrawer";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function Header({ locale }: { locale: Locale }) {
   const { openCart, count } = useCart();
-  const otherLocale = locale === "ar" ? "en" : "ar";
   const c = copy[locale];
 
   return (
     <>
-      <div className="announcement">{c.announcement}</div>
+      <AnnouncementBar locale={locale} />
       <header className="header">
         <Link className="logoWrap" href={`/${locale}`} aria-label={brand.name}>
           <Image src={brand.logo} alt={brand.name} width={96} height={62} priority />
@@ -29,9 +30,7 @@ export function Header({ locale }: { locale: Locale }) {
           ))}
         </nav>
         <div className="actions">
-          <Link className="langButton" href={`/${otherLocale}`} aria-label="Switch language">
-            {otherLocale.toUpperCase()}
-          </Link>
+          <LanguageSwitcher locale={locale} />
           <a className="iconButton" href={`https://wa.me/${brand.whatsapp}`} aria-label="WhatsApp">
             <MessageCircle size={20} />
           </a>
