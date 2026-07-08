@@ -17,10 +17,17 @@ export function ProductCard({ product, locale }: { product: Product; locale: Loc
         </div>
       </Link>
       <div className="productInfo">
+        <div className="productMeta">{product.category}</div>
         <h3>{locale === "ar" ? product.nameAr : product.nameEn}</h3>
         <div className="benefit">{locale === "ar" ? product.shortBenefitAr : product.shortBenefitEn}</div>
-        <div className="swatches" aria-label="Colors">
-          {product.colors.map((color) => <span className="swatch" key={color.id} style={{ background: color.value }} title={locale === "ar" ? color.nameAr : color.nameEn} />)}
+        <div className="productOptions">
+          <div className="swatches" aria-label="Colors">
+            {product.colors.map((color) => <span className="swatch" key={color.id} style={{ background: color.value }} title={locale === "ar" ? color.nameAr : color.nameEn} />)}
+          </div>
+          <div className="sizePreview" aria-label={locale === "ar" ? "المقاسات" : "Sizes"}>
+            {product.sizes.slice(0, 4).map((size) => <span key={size}>{size}</span>)}
+            {product.sizes.length > 4 && <span>+{product.sizes.length - 4}</span>}
+          </div>
         </div>
         <div className="priceRow">
           <span className="price">{formatPrice(product.price)}</span>

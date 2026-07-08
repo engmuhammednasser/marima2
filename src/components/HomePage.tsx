@@ -17,7 +17,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <TrustBadges locale={locale} />
 
-      <section className="section" id="products">
+      <section className="section productsSection" id="products">
         <div className="container">
           <div className="sectionHead">
             <div>
